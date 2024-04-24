@@ -18,8 +18,10 @@ cd backend
 npm install
 ```
 5. Start the server
+```bash
 npm run start
 npx prisma generate
+```
 
 
 
