@@ -27,11 +27,12 @@ export const getDeliveryCharges = catchAsyncError(
         let totalPrice = 0;
         if (pricing) {
             const { baseDistanceInKm, fixPrice } = pricing;
-            const kmPrice = item_type === "preishable" ? 1.5 : 1;
+            const kmPrice = item_type === "perishable" ? 1.5 : 1;
+            console.log(kmPrice)
             if (total_distance <= baseDistanceInKm) {
                 totalPrice = fixPrice;
             } else {
-                totalPrice = fixPrice + (total_distance - baseDistanceInKm) * kmPrice;
+                totalPrice = fixPrice + ((total_distance - baseDistanceInKm) * kmPrice);
             }
         }
 
