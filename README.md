@@ -15,7 +15,7 @@ BASE_URL=https://localhost:4000/`
 4. Install dependencies:
 ```bash
 cd backend
-npm install```
+npm install
 5. Start the server
 npm run start
 npx prisma generate
