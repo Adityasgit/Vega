@@ -20,12 +20,14 @@ export const getDeliveryCharges = catchAsyncError(
                 },
             },
         });
-
+        if (!pricing || pricing === null) {
+            return next(new ErrorHandler(404, "Pricing not found for the given parameters"));
+        }
         // Calculate total price
         let totalPrice = 0;
         if (pricing) {
-            const { baseDistanceInKm, kmPrice, fixPrice } = pricing;
-
+            const { baseDistanceInKm, fixPrice } = pricing;
+            const kmPrice = item_type === "preishable" ? 1.5 : 1;
             if (total_distance <= baseDistanceInKm) {
                 totalPrice = fixPrice;
             } else {
@@ -34,14 +36,14 @@ export const getDeliveryCharges = catchAsyncError(
         }
 
         // Respond with the total price
-        res.status(200).json({ total_price: totalPrice });
+        res.status(200).json({ success: "true", total_price: totalPrice });
     }
 
 );
 
 export const add_pricing = catchAsyncError(
     async (req, res, next) => {
-        const base_distance_in_km = 5, km_price = 1.5 / 1, fix_price = 10;
+        const base_distance_in_km = 5, km_price = 1, fix_price = 10;
         const { organisation_id, item_id, zone } = req.body;
         if (!organisation_id || !item_id || !zone) {
             return next(new ErrorHandler(200, "Please provide all the required fields"));
@@ -54,7 +56,7 @@ export const add_pricing = catchAsyncError(
             kmPrice: km_price,
             fixPrice: fix_price
         }
-        await prisma.Pricing.create({
+        await prisma.pricing.create({
             data: pricing
         });
         res.status(200).json({

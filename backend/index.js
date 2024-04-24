@@ -25,8 +25,30 @@ app.use('/api/v1', orgRoute);
 
 // swagger documentation
 import swaggerUi from 'swagger-ui-express'
-import swaggerDocument from './swagger.json'
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+import swaggerDoc from 'swagger-jsdoc'
+const options = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Price Tracker API',
+            version: '1.0.0',
+            description: 'This is a price tracker API',
+            contact: {
+                name: 'Aditya Arora',
+                email: 'in7814692152@gmail.com',
+                url: 'https://linkedin.com/in/adityaarorasde',
+            }
+        },
+        servers: [
+            {
+                url: process.env.BASE_URL,
+            },
+        ],
+    },
+    apis: ['./routes/*.js'],
+};
+const specs = swaggerDoc(options);
+app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
 
 // error middleware
 app.use(errormiddleware)

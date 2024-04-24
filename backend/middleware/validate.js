@@ -12,7 +12,7 @@ export const calculate_charges_validate = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return next(new ErrorHandler(400, errors.array()[0].msg));
+            return next(new ErrorHandler(400, errors));
         }
         next();
     }
@@ -27,7 +27,7 @@ export const add_pricing_validate = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return next(new ErrorHandler(400, errors.array()[0].msg));
+            return next(new ErrorHandler(400, errors));
         }
         next();
     }
@@ -41,7 +41,7 @@ export const add_org_validate = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return next(new ErrorHandler(400, errors.array()[0].msg));
+            return next(new ErrorHandler(400, errors));
         }
         next();
     }
@@ -56,7 +56,7 @@ export const add_item_validate = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return next(new ErrorHandler(400, errors.array()[0].msg));
+            return next(new ErrorHandler(400, errors));
         }
         next();
     }
