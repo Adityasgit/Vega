@@ -1,5 +1,6 @@
 import express from 'express'
 const app = express();
+
 // conigurations
 import dotenv from 'dotenv'
 dotenv.config();
@@ -20,9 +21,12 @@ import orgRoute from './routes/orgRoute.js'
 app.use('/api/v1', priceRoute);
 app.use('/api/v1', itemRoute);
 app.use('/api/v1', orgRoute);
-app.get('/', catchAsyncError((req, res, next) => {
-    return next(new ErrorHandler(400, "please navigate to /api/v1/calculate/charges to calculate delivery charges"));
-}));
+
+
+// swagger documentation
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './swagger.json'
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // error middleware
 app.use(errormiddleware)
