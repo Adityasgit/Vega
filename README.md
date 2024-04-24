@@ -16,6 +16,7 @@ BASE_URL=https://localhost:4000/`
 ```bash
 cd backend
 npm install
+
 5. Start the server
 npm run start
 npx prisma generate
